@@ -2,6 +2,9 @@ import { chromium, expect } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 const base = process.env.PAGES_URL || "http://localhost:3000/Northstar-studio/";
 const browser = await chromium.launch({
+  ...(process.env.PAGES_URL && process.env.HTTPS_PROXY
+    ? { proxy: { server: process.env.HTTPS_PROXY } }
+    : {}),
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
   headless: true,
   args: ["--no-sandbox"],

@@ -1,6 +1,6 @@
 # QA report — local demonstration
 
-Date: 2026-10-12 UTC. No deployment, external infrastructure or messages. All datasets are synthetic. This is a demo for Ignacio's review, not a certification or production approval.
+Date: 2026-10-12 UTC. Initial local verification preceded publication; the separately authorized GitHub Pages deployment is recorded below. No backend infrastructure or external messages. All datasets are synthetic. This is a demo for Ignacio's review, not a certification or production approval.
 
 ## Environment
 
@@ -11,17 +11,17 @@ Date: 2026-10-12 UTC. No deployment, external infrastructure or messages. All da
 
 ## Executed checks
 
-| Command | Result |
-|---|---|
-| `npm install` / migrations / `npm run db:seed` | Executed against dedicated local PostgreSQL; seed creates isolated workspace, never clears DB |
-| `npm run lint` | Passed, application/source only; generated test reports excluded |
-| `npm run typecheck` | Passed API/web/shared contracts |
-| `npm run test` | 25 passed: 9 domain/config/format tests + 16 PostgreSQL HTTP integration cases |
-| `npm run build` | Passed compiled API/worker/migrator, ten exported routes plus 404, CSP hashes and Hostinger/Pages headers |
-| `node apps/api/dist/migrate.mjs` | Executed successfully; compiled API/readiness also started and checked |
-| `npm run test:e2e` | Six scenarios; final clean-checkout result recorded below |
-| `npm audit --omit=dev` | Last observed: 0 reported production vulnerabilities after ORM update |
-| `node scripts/lighthouse.mjs` | Actual JSON reports in evidence; final repeated score table recorded below |
+| Command                                        | Result                                                                                                    |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `npm install` / migrations / `npm run db:seed` | Executed against dedicated local PostgreSQL; seed creates isolated workspace, never clears DB             |
+| `npm run lint`                                 | Passed, application/source only; generated test reports excluded                                          |
+| `npm run typecheck`                            | Passed API/web/shared contracts                                                                           |
+| `npm run test`                                 | 25 passed: 9 domain/config/format tests + 16 PostgreSQL HTTP integration cases                            |
+| `npm run build`                                | Passed compiled API/worker/migrator, ten exported routes plus 404, CSP hashes and Hostinger/Pages headers |
+| `node apps/api/dist/migrate.mjs`               | Executed successfully; compiled API/readiness also started and checked                                    |
+| `npm run test:e2e`                             | Six scenarios; final clean-checkout result recorded below                                                 |
+| `npm audit --omit=dev`                         | Last observed: 0 reported production vulnerabilities after ORM update                                     |
+| `node scripts/lighthouse.mjs`                  | Actual JSON reports in evidence; final repeated score table recorded below                                |
 
 Video is recorded (71.48 seconds). Clean checkout verification details are recorded below. Earlier failures were corrected and rerun: initial fixed-price test selected a random catalog row, a disabled-task selector was wrong, language navigation/autosave had genuine issues, contrast during reveal and responsive labels/layout needed fixes, and intercepted HTML caused Chromium loopback policy failure. CSP is now tested through real HTTP headers without weakening CORS/CSRF. CMS QA targets the active Digital profile rather than a random item from other catalogs.
 
@@ -50,3 +50,11 @@ Final browser result: all six tests passed (45.1 seconds), including new brief �
 ## Recorded demonstration
 
 `docs/evidence/northstar-demo.mp4` and `.webm`: 71.48 seconds; MP4 2,158,574 bytes. Recorded with Playwright driving an isolated synthetic workspace through real API/DB, with six deliberate seven-second reading pauses, then encoded locally with ffmpeg. No narration, fabricated screen data, public hosting or external service effects. Each capture/recording may use a different isolated workspace; continuity IDs remain the same within each individual business walkthrough.
+
+## GitHub Pages publication — 2026-10-12
+
+Source `8c33cec6a347fc6a91cc67bb2a96958561345587` published to https://toti-gauna.github.io/Northstar-studio/ through successful [Pages Actions run](https://github.com/Toti-Gauna/Northstar-studio/actions/runs/38318718771). Build independently passed npm ci, lint, typecheck and static export. Local and public Chromium smoke both passed using `node scripts/check-pages.mjs`; public command: `PAGES_URL=https://toti-gauna.github.io/Northstar-studio/ node scripts/check-pages.mjs`. Public screenshots/check JSON are in docs/evidence/pages. Tested project prefix, catalog/packages/cases, FAQ expansion, English/Spanish persistence, brief/client/operator availability explanations, no browser errors, no fictional API/localhost requests, and widths 360/390/768/1024/1440 without horizontal page overflow.
+
+This published build is explicitly disconnected from an API. The catalog is public editorial content, not substitute DB persistence. No public full-stack E2E success is claimed. Pages ignores HTTP header configuration files; a meta CSP is inserted, with header-only defenses documented as unavailable on this host.
+
+The independent [GitHub verification run](https://github.com/Toti-Gauna/Northstar-studio/actions/runs/38318718965) also succeeded for the deployed source: npm ci, PostgreSQL migration, lint, typecheck, 25 domain/PostgreSQL integration tests, compiled API/static build and 6 Playwright E2E scenarios (58.0 seconds). This exercises the full loop against CI PostgreSQL, not a publicly hosted backend.
