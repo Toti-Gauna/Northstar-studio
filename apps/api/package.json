@@ -1,0 +1,39 @@
+{
+  "name": "@northstar/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.mjs",
+    "build": "tsc -p tsconfig.json && node ../../scripts/build-api.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed-command.ts",
+    "worker": "node dist/worker.mjs"
+  },
+  "dependencies": {
+    "@northstar/contracts": "*",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.4",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2",
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.17.2",
+    "pg": "^8.16.3",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
+    "@types/pdfkit": "^0.17.3",
+    "@types/pg": "^8.15.5",
+    "@types/pngjs": "^6.0.5"
+  }
+}

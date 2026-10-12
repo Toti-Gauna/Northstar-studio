@@ -1,0 +1,17 @@
+name: northstar-studio
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: northstar
+      POSTGRES_PASSWORD: northstar_local_only
+      POSTGRES_DB: northstar
+    ports: ["127.0.0.1:5434:5432"]
+    volumes: ["northstar-db:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U northstar -d northstar"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+volumes:
+  northstar-db:

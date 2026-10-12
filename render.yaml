@@ -1,0 +1,37 @@
+# Preparation only. Do not apply without reviewing billing, domain, Neon and disk persistence.
+services:
+  - type: web
+    name: northstar-api
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run build
+    preDeployCommand: node apps/api/dist/migrate.mjs
+    startCommand: node apps/api/dist/index.mjs
+    healthCheckPath: /ready
+    disk:
+      name: northstar-private-files
+      mountPath: /var/data/northstar
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: WEB_ORIGIN
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAME_SITE
+        value: lax
+      - key: STORAGE_DIR
+        value: /var/data/northstar
+      - key: STORAGE_DURABLE
+        value: "true"
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+# Run expiry/reminder reconciliation in a separate scheduled job using the same DATABASE_URL.
+# It needs no file disk for expiry/reminders: node apps/api/dist/worker.mjs.

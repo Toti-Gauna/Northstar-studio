@@ -1,0 +1,41 @@
+{
+  "name": "northstar-service-studio",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm run dev -w @northstar/api\" \"npm run dev -w @northstar/web\"",
+    "build": "npm run build -w @northstar/api && npm run build -w @northstar/web && node scripts/static-headers.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "db:migrate": "npm run db:migrate -w @northstar/api",
+    "db:seed": "npm run db:seed -w @northstar/api",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "serve": "concurrently -k \"npm run start -w @northstar/api\" \"node scripts/serve-static.mjs\"",
+    "worker": "npm run worker -w @northstar/api"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.11",
+    "esbuild": "^0.25.12",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "lighthouse": "^13.5.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4"
+  }
+}
