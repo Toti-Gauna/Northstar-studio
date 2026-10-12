@@ -20,3 +20,5 @@ For a fast live presentation, prepare a synthetic brief/V1 in the same workspace
 - Referral/in-person: choose Architecture or Technical Services as appropriate, discuss required site/equipment information and what the client must provide. Keep company/cases labeled fictional.
 
 The downloadable demo card lists verified local functions. It does not export workspace counts as revenue, conversion or ROI. Review copy and pricing with Ignacio before any outreach.
+
+The delivered [71-second recorded walkthrough](evidence/northstar-demo.mp4) uses the actual application and synthetic PostgreSQL records. It is an automated QA recording with reading pauses, not a claim that a person typed the entire flow live.
