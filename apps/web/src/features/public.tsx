@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { money, type Copy, type Service } from "@northstar/contracts";
 import { Check, Plus } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -114,9 +115,9 @@ export function ServiceDetail() {
         <QueryState query={query}>
           {query.data && (
             <>
-              <a className="text-link" href="/services/">
+              <SiteLink className="text-link" href="/services/">
                 ← {t.services}
-              </a>
+              </SiteLink>
               <PageHeading
                 eyebrow={t.services}
                 title={query.data.data.name[locale]}

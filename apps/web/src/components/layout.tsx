@@ -1,4 +1,7 @@
 "use client";
+import { STATIC_PREVIEW } from "../lib/api";
+import { siteHref } from "../lib/navigation";
+import { SiteLink } from "./site-link";
 import type { DemoIdentity } from "@northstar/contracts";
 import { ArrowUpRight, Compass, LogOut, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -9,7 +12,7 @@ import { Button, Confirm } from "./ui";
 export function Brand() {
   const { me, locale } = useApp();
   return (
-    <a className="brand" href="/">
+    <SiteLink className="brand" href="/">
       <span className="brand-mark" aria-hidden="true">
         {me?.brand.logoText || "N✦"}
       </span>
@@ -17,7 +20,7 @@ export function Brand() {
         <strong>{me?.brand.name || "Northstar"}</strong>
         <small>{me?.brand.tagline[locale] || "Service Studio"}</small>
       </span>
-    </a>
+    </SiteLink>
   );
 }
 export function DemoControls() {
@@ -61,7 +64,7 @@ export function DemoControls() {
               if (result) {
                 toast(labels[identity]);
                 window.location.assign(
-                  identity === "operator" ? "/operator/" : "/client/",
+                  siteHref(identity === "operator" ? "/operator/" : "/client/"),
                 );
               }
             }}
@@ -91,9 +94,9 @@ export function SiteFrame({ children }: { children: ReactNode }) {
         } as CSSProperties
       }
     >
-      <a className="skip" href="#main">
+      <SiteLink className="skip" href="#main">
         Skip to content / Saltar al contenido
-      </a>
+      </SiteLink>
       <div className="demo-ribbon">
         <span>{t.demo}</span>
         <span className="ribbon-note">D01 / {t.isolated}</span>
@@ -107,7 +110,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             ["/process/", t.process],
             ["/faq/", t.faq],
           ].map(([href, label]) => (
-            <a
+            <SiteLink
               href={href}
               key={href}
               aria-current={
@@ -117,7 +120,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
               }
             >
               {label}
-            </a>
+            </SiteLink>
           ))}
         </nav>
         <DemoControls />
@@ -131,12 +134,24 @@ export function SiteFrame({ children }: { children: ReactNode }) {
         </button>
       </header>
       <main id="main">
-        {sessionError && (
+        {(STATIC_PREVIEW || sessionError) && (
           <div className="wrap history-warning" role="alert">
-            <p>{t.sessionError}</p>
-            <Button variant="secondary" onClick={() => start()}>
-              {t.retry}
-            </Button>
+            <p>
+              <strong>
+                {STATIC_PREVIEW ? t.staticPreview : t.sessionError}
+              </strong>
+              {STATIC_PREVIEW && (
+                <>
+                  <br />
+                  {t.staticPreviewBody}
+                </>
+              )}
+            </p>
+            {!STATIC_PREVIEW && (
+              <Button variant="secondary" onClick={() => start()}>
+                {t.retry}
+              </Button>
+            )}
           </div>
         )}
         {children}
@@ -148,14 +163,14 @@ export function SiteFrame({ children }: { children: ReactNode }) {
           <br />
           <span>{t.noExternal}</span>
         </p>
-        <a href="/client/">
+        <SiteLink href="/client/">
           {t.client}
           <ArrowUpRight size={15} />
-        </a>
-        <a href="/operator/">
+        </SiteLink>
+        <SiteLink href="/operator/">
           {t.operator}
           <ArrowUpRight size={15} />
-        </a>
+        </SiteLink>
       </footer>
       <DemoTour />
     </div>
@@ -170,6 +185,19 @@ export function SessionGate({
 }) {
   const { me, t, loading, sessionError, start, switchRole } = useApp(),
     action = useAction();
+  if (STATIC_PREVIEW)
+    return (
+      <div className="session-gate">
+        <span className="star" aria-hidden="true">
+          ✦
+        </span>
+        <h1>{t.staticPreview}</h1>
+        <p>{t.staticPreviewBody}</p>
+        <SiteLink className="button secondary" href="/services/">
+          {t.services}
+        </SiteLink>
+      </div>
+    );
   if (loading) return <div className="empty">{t.loading}</div>;
   if (!me)
     return (
@@ -244,19 +272,19 @@ export function PortalFrame({
           </div>
           <nav aria-label={operator ? t.operator : t.client}>
             {nav.map(([key, label]) => (
-              <a
+              <SiteLink
                 key={key}
                 href={`${base}?view=${key}`}
                 className={view === key ? "selected" : ""}
               >
                 {label}
                 <ArrowUpRight size={14} />
-              </a>
+              </SiteLink>
             ))}
           </nav>
-          <a className="button secondary" href="/brief/">
+          <SiteLink className="button secondary" href="/brief/">
             {t.newBrief}
-          </a>
+          </SiteLink>
           <div className="sidebar-bottom">
             <Button variant="quiet" onClick={() => setReset(true)}>
               {t.reset}

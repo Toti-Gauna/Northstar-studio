@@ -339,6 +339,9 @@ export const dictionary = {
     read: "Read",
     unread: "Unread",
     sessionError: "Workspace unavailable. Retry to connect.",
+    staticPreview: "Public preview · API not connected",
+    staticPreviewBody:
+      "Browse the published sample catalog. Brief submission, proposals and projects require the Northstar API and database; they are unavailable on this static site.",
     fieldError: "Please review the form fields.",
     acceptError:
       "This version cannot be accepted. Refresh to see its current status.",
@@ -688,6 +691,9 @@ export const dictionary = {
     read: "Leída",
     unread: "Sin leer",
     sessionError: "Workspace no disponible. Reintentá para conectar.",
+    staticPreview: "Vista pública · API no conectada",
+    staticPreviewBody:
+      "Explorá el catálogo de muestra publicado. El envío de briefs, las propuestas y los proyectos requieren la API y la base de datos de Northstar; no están disponibles en este sitio estático.",
     fieldError: "Revisá los campos del formulario.",
     acceptError:
       "No puede aceptarse esta versión. Actualizá para ver su estado.",

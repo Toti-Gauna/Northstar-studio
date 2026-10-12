@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { ArrowUpRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useApi, useApp } from "../components/providers";
@@ -113,12 +114,12 @@ export function RequestList({ operator }: { operator: boolean }) {
                 {query.data.items.map((lead) => (
                   <tr key={lead.id}>
                     <td className="request-cell">
-                      <a href={`${base}?view=request&id=${lead.id}`}>
+                      <SiteLink href={`${base}?view=request&id=${lead.id}`}>
                         <strong>{lead.title}</strong>
                         <small>
                           {lead.reference} / {lead.service.data.name[locale]}
                         </small>
-                      </a>
+                      </SiteLink>
                     </td>
                     <td>
                       <Status value={lead.status} />
@@ -142,13 +143,13 @@ export function RequestList({ operator }: { operator: boolean }) {
                       </small>
                     </td>
                     <td>
-                      <a
+                      <SiteLink
                         className="table-link"
                         href={`${base}?view=request&id=${lead.id}`}
                         aria-label={`${t.showDetails}: ${lead.reference}`}
                       >
                         <ArrowUpRight size={18} />
-                      </a>
+                      </SiteLink>
                     </td>
                   </tr>
                 ))}

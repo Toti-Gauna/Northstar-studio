@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { activeQuestions } from "@northstar/contracts";
 import { FileText } from "lucide-react";
 import { useState } from "react";
@@ -38,9 +39,12 @@ export function RequestDetail({
     <QueryState query={query}>
       {lead && (
         <>
-          <a className="text-link" href={operator ? "/operator/" : "/client/"}>
+          <SiteLink
+            className="text-link"
+            href={operator ? "/operator/" : "/client/"}
+          >
             ← {operator ? t.inbox : t.requests}
-          </a>
+          </SiteLink>
           <PageHeading eyebrow={lead.reference} title={lead.title}>
             <Status value={lead.status} />
           </PageHeading>

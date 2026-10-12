@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { useGSAP } from "@gsap/react";
 import { money, type Service } from "@northstar/contracts";
 import { useQuery } from "@tanstack/react-query";
@@ -7,7 +8,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { useRef, useState } from "react";
 import { useApi, useApp } from "../components/providers";
 import { Button, Empty } from "../components/ui";
-import { request } from "../lib/api";
+import { request, STATIC_PREVIEW } from "../lib/api";
 
 export function LivePreview() {
   const { me, locale, t } = useApp(),
@@ -61,7 +62,9 @@ export function LivePreview() {
         <span className="eyebrow">{t.preview}</span>
         <span className="live-dot" aria-hidden="true" />
       </div>
-      <p className="preview-note">{t.previewNote}</p>
+      <p className="preview-note">
+        {STATIC_PREVIEW ? t.staticPreview : t.previewNote}
+      </p>
       <label htmlFor="preview-service" className="sr-only">
         {t.services}
       </label>
@@ -105,6 +108,7 @@ export function LivePreview() {
           {t.quantity} <small>{service?.data.unit[locale]}</small>
         </label>
         <input
+          disabled={STATIC_PREVIEW}
           id="preview-quantity"
           type="number"
           min="1"
@@ -119,6 +123,7 @@ export function LivePreview() {
       {service?.data.addons.slice(0, 1).map((a) => (
         <label className="check compact" key={a.id}>
           <input
+            disabled={STATIC_PREVIEW}
             type="checkbox"
             checked={addons.includes(a.id)}
             onChange={(e) =>
@@ -155,7 +160,7 @@ export function LivePreview() {
           {t.estimateFailed} · {t.retry}
         </Button>
       )}
-      <a
+      <SiteLink
         className="preview-cta"
         href={
           service
@@ -165,7 +170,7 @@ export function LivePreview() {
       >
         {t.buildBrief}
         <ArrowUpRight size={18} />
-      </a>
+      </SiteLink>
       <div className="preview-orbit" aria-hidden="true">
         <svg viewBox="0 0 400 400">
           <circle cx="200" cy="200" r="165" />

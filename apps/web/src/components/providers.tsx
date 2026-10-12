@@ -14,7 +14,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ApiError, request, setCsrf } from "../lib/api";
+import { ApiError, request, setCsrf, STATIC_PREVIEW } from "../lib/api";
 import { dictionary, type Dictionary } from "../lib/dictionaries";
 import type { Me } from "../lib/types";
 type Context = {
@@ -62,6 +62,9 @@ function Session({ children }: { children: ReactNode }) {
     setSessionError(false);
   }, []);
   useEffect(() => {
+    const savedLocale = sessionStorage.getItem("northstar.locale");
+    if (savedLocale === "en" || savedLocale === "es")
+      setLocaleState(savedLocale);
     let live = true;
     initial ??= loadMe(true);
     initial
@@ -176,7 +179,8 @@ export function useApi<T = any>(path: string, enabled = true) {
   return useQuery<T>({
     queryKey: [me?.workspaceId, me?.userId, path],
     queryFn: ({ signal }) => request<T>(path, "GET", undefined, signal),
-    enabled: !!me && enabled,
+    enabled:
+      enabled && (!!me || (STATIC_PREVIEW && path.startsWith("/public/"))),
   });
 }
 export function useAction() {

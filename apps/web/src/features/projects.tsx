@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { money } from "@northstar/contracts";
 import { ArrowUpRight, CheckCircle2, Clock } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -33,7 +34,7 @@ export function ProjectList({ operator }: { operator: boolean }) {
       <QueryState query={query}>
         {query.data?.items.length ? (
           query.data.items.map((p) => (
-            <a
+            <SiteLink
               className="project-card"
               href={`${base}?view=project&id=${p.id}`}
               key={p.id}
@@ -47,7 +48,7 @@ export function ProjectList({ operator }: { operator: boolean }) {
               <span className="circle-arrow">
                 <ArrowUpRight size={20} />
               </span>
-            </a>
+            </SiteLink>
           ))
         ) : (
           <Empty>
@@ -106,12 +107,12 @@ export function ProjectDetail({
       <QueryState query={query}>
         {project && (
           <>
-            <a
+            <SiteLink
               className="text-link"
               href={`${operator ? "/operator/" : "/client/"}?view=projects`}
             >
               ← {t.projects}
-            </a>
+            </SiteLink>
             <PageHeading
               eyebrow={project.reference}
               title={project.title}

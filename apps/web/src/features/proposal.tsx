@@ -1,4 +1,6 @@
 "use client";
+import { siteHref } from "../lib/navigation";
+import { SiteLink } from "../components/site-link";
 import { money } from "@northstar/contracts";
 import {
   ArrowRight,
@@ -260,20 +262,20 @@ export function ProposalRoom({
               </>
             )}
             {lead.status === "won" && project.data?.items[0] && (
-              <a
+              <SiteLink
                 className="button primary"
                 href={`${operator ? "/operator/" : "/client/"}?view=project&id=${project.data.items[0].id}`}
               >
                 {t.openProject}
                 <ArrowUpRight size={16} />
-              </a>
+              </SiteLink>
             )}
             <Button
               variant="quiet"
               onClick={() =>
                 action.run(async () => {
                   await navigator.clipboard.writeText(
-                    `${window.location.origin}/client/?view=request&id=${lead.id}`,
+                    `${window.location.origin}${siteHref(`/client/?view=request&id=${lead.id}`)}`,
                   );
                 }, t.copied)
               }

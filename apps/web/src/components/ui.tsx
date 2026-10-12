@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "./site-link";
 import { ArrowUpRight, Check, LoaderCircle, X } from "lucide-react";
 import {
   useEffect,
@@ -37,10 +38,13 @@ export function LinkButton({
   secondary?: boolean;
 }) {
   return (
-    <a className={`button ${secondary ? "secondary" : "primary"}`} href={href}>
+    <SiteLink
+      className={`button ${secondary ? "secondary" : "primary"}`}
+      href={href}
+    >
       {children}
       <ArrowUpRight size={17} />
-    </a>
+    </SiteLink>
   );
 }
 export function Field({

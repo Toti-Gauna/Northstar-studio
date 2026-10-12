@@ -1,4 +1,5 @@
 "use client";
+import { siteHref } from "../lib/navigation";
 import { ArrowRight } from "lucide-react";
 import { Button, LinkButton } from "../components/ui";
 import type { BriefFlow } from "./use-brief-flow";
@@ -43,7 +44,7 @@ export function BriefReceipt({ flow }: { flow: BriefFlow }) {
               });
               if (!result) return;
               window.location.assign(
-                `/operator/?view=request&id=${receipt.id}`,
+                siteHref(`/operator/?view=request&id=${receipt.id}`),
               );
             }}
           >

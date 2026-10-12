@@ -1,3 +1,5 @@
+import { siteHref } from "./navigation";
+export const STATIC_PREVIEW = process.env.NEXT_PUBLIC_STATIC_PREVIEW === "1";
 export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 let csrfToken = "";
 export const setCsrf = (token: string) => {
@@ -20,6 +22,31 @@ export async function request<T = any>(
   body?: unknown,
   signal?: AbortSignal,
 ): Promise<T> {
+  if (STATIC_PREVIEW) {
+    if (method !== "GET" || !path.startsWith("/public/"))
+      throw new ApiError(
+        "API_NOT_CONFIGURED",
+        "The interactive demo requires a connected API.",
+        503,
+      );
+    const response = await fetch(siteHref("/published-catalog.json"), {
+      signal,
+    });
+    if (!response.ok)
+      throw new ApiError(
+        "NETWORK",
+        "Public catalog unavailable.",
+        response.status,
+      );
+    const catalog = await response.json();
+    const [kind, id] = path.slice("/public/".length).split("/");
+    const data = id
+      ? catalog[kind]?.items.find((item: { id: string }) => item.id === id)
+      : catalog[kind];
+    if (!data)
+      throw new ApiError("NOT_FOUND", "Published content not found.", 404);
+    return data;
+  }
   let response: Response;
   try {
     response = await fetch(`${API}${path}`, {

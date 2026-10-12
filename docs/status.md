@@ -13,3 +13,7 @@ Run from root: `npm ci`, copy .env.example to .env only if missing, `docker comp
 No local access blockers or unfinished demo modules. External email/WhatsApp/payment/calendar/LLM/certified signing are absent and not claimed. No deployed URL. Production review still needs brand/prices/terms/cases, real identity/invitation policy, native zoom/screen-reader/cross-browser QA, CSP issue interpretation, same-site HTTPS origins/cookies, independent Neon/Render/durable disk permissions/billing, storage retention/cleanup/monitoring and backups. Expired/reset history is inaccessible and retained for review.
 
 Preview API/static servers have been stopped after QA. Dedicated Docker DB remains available locally; clean verification checkout/database are separate temporary evidence environments. Do not rebuild from scratch: resume from this branch and the README. State: awaiting Ignacio review, not automatically approved or publicly available.
+
+## Publication requested 2026-10-12
+
+Ignacio explicitly authorized GitHub Pages publication after the local delivery. Pages is already configured to use Actions. Preparing `main`, a deployment workflow, project-path routing and a clearly labeled disconnected catalog preview when `NORTHSTAR_API_URL` is absent. API hosting remains independently required; no Render/Neon resources are provisioned. Publication verification will be recorded below when the workflow completes.

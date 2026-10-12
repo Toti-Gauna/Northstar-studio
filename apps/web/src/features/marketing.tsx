@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { type Service } from "@northstar/contracts";
 import { ArrowUpRight } from "lucide-react";
 import { ProcessDiagram } from "../components/motion";
@@ -19,7 +20,11 @@ export function ServiceList({ compact = false }: { compact?: boolean }) {
         {query.data?.items.length === 0 && <Empty text={t.noPublished} />}
         <div className="service-list">
           {query.data?.items.map((s, i) => (
-            <a className="service-row" key={s.id} href={`/service/?id=${s.id}`}>
+            <SiteLink
+              className="service-row"
+              key={s.id}
+              href={`/service/?id=${s.id}`}
+            >
               <span className="service-number">0{i + 1}</span>
               <div>
                 <h3>{s.data.name[locale]}</h3>
@@ -31,15 +36,15 @@ export function ServiceList({ compact = false }: { compact?: boolean }) {
               <span className="circle-arrow">
                 <ArrowUpRight size={23} />
               </span>
-            </a>
+            </SiteLink>
           ))}
         </div>
       </QueryState>
       {compact && (
-        <a className="text-link" href="/services/">
+        <SiteLink className="text-link" href="/services/">
           {t.viewAll}
           <ArrowUpRight size={17} />
-        </a>
+        </SiteLink>
       )}
     </section>
   );

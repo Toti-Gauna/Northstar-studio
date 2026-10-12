@@ -1,0 +1,14 @@
+{
+  "base": "http://localhost:3000/Northstar-studio/",
+  "checkedAt": "2026-10-12T22:47:57.208Z",
+  "routes": "home, services, service/package, brief gate, cases, process, FAQ, client, operator",
+  "widths": [
+    360,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "assertions": "prefix navigation, static catalog, bilingual persistence, no fake API/session, no overflow, no page errors",
+  "errors": []
+}

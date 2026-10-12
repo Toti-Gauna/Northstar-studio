@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { type Copy } from "@northstar/contracts";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Reveal } from "../components/motion";
@@ -120,10 +121,10 @@ export function Cases({ compact = false }: { compact?: boolean }) {
                     </details>
                   )}
                   {compact && (
-                    <a className="text-link" href="/cases/">
+                    <SiteLink className="text-link" href="/cases/">
                       {t.showDetails}
                       <ArrowUpRight size={16} />
-                    </a>
+                    </SiteLink>
                   )}
                 </div>
               </article>

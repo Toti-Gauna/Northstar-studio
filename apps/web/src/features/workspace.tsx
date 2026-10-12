@@ -1,4 +1,5 @@
 "use client";
+import { SiteLink } from "../components/site-link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { useState } from "react";
 import { useAction, useApi, useApp } from "../components/providers";
@@ -54,13 +55,13 @@ export function WorkspaceFeed({
               </div>
               <div className="actions">
                 {kind === "notifications" && e.entityId && (
-                  <a
+                  <SiteLink
                     className="button quiet"
                     href={`${operator ? "/operator/" : "/client/"}?view=request&id=${e.entityId}`}
                     aria-label={t.openRequest}
                   >
                     <ArrowUpRight size={16} />
-                  </a>
+                  </SiteLink>
                 )}
                 {kind === "notifications" && !e.readAt && (
                   <Button

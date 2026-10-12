@@ -42,3 +42,7 @@ English/Spanish dictionaries and three catalogs share the same screens. Brand/pr
 Documentation: [scope](docs/scope.md), [architecture](docs/architecture.md), [API](docs/api.md), [runbook](docs/runbook.md), [QA](docs/qa-report.md), [status](docs/status.md), [integration matrix](docs/integration-matrix.md), [customization](docs/customization-playbook.md), [90-second demo script](docs/demo-script.md). Actual browser captures, a generated PDF and a [71-second recording](docs/evidence/northstar-demo.mp4) are in [docs/evidence](docs/evidence).
 
 This is a local demo for Ignacio's review. External messaging, payments, certified signatures, production accounts, hosted URLs and commercial results are not provided. Review deployment origins/cookies, durable storage, retention, costs and production identity needs before sharing publicly.
+
+### GitHub Pages
+
+The project frontend is prepared for [GitHub Pages](https://toti-gauna.github.io/Northstar-studio/). See [publication modes and routing](docs/github-pages.md). Without the Actions variable `NORTHSTAR_API_URL`, it publishes an explicitly disconnected public catalog preview; Pages cannot host the API/database. The complete commercial loop still runs locally with PostgreSQL.
